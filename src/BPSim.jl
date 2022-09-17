@@ -34,26 +34,9 @@ export
     BinaryFluctuatingKModel
 
 include("offspring_distributions.jl")
+include("simulate.jl")
 include("statistics.jl")
 
-# Simulate the trajectory of a generic branching process
-function simulate_trajectory(n::Integer, ξ::OffspringDistribution, Z₀::Integer=1)
-    n < 0 && throw(DomainError(n, "argument must be nonnegative"))
-
-    rng = Xoshiro()
-
-    Z = zeros(Int, n + 1)
-    Z[1] = Z₀
-
-    for k = 1:n, i = 1:Z[k]
-        Z[k+1] += sample(rng, ξ, Z[k])
-    end
-
-    return Z
-end
-
-# function simulate_trajectory(n::Integer, ξ::OffspringDistribution, Z₀::Integer=1; nreps::Integer)
-# end
 
 # Plot the trajectory of a branching process
 function plot_trajectory(trajectory, K=nothing)
@@ -76,8 +59,5 @@ function plot_trajectory(trajectory, K=nothing)
 
     return p
 end
-
-trajectory = simulate_trajectory(1000, BinaryFluctuatingKModel(100, BevertonHoltModel(500)))
-display(plot_trajectory(trajectory))
 
 end
