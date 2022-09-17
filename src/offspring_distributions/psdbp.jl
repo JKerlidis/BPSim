@@ -144,9 +144,9 @@ m(z) = \\begin{cases}
 Methods:
 ```julia
     BinaryFluctuatingKModel(β, psdbp_distribution)  # Binary fluctuations of factor β over psdbp_distribution
-    BinaryFluctuatingKModel(psdbp_distribution)     # Binary fluctuations of factor 1.25 over psdbp_distribution
+    BinaryFluctuatingKModel(psdbp_distribution)     # Binary fluctuations of factor 1.5 over psdbp_distribution
     BinaryFluctuatingKModel(β)                      # Binary fluctuations of factor β over a BH model
-    BinaryFluctuatingKModel()                       # Binary fluctuations of factor 1.25 over a BH model
+    BinaryFluctuatingKModel()                       # Binary fluctuations of factor 1.5 over a BH model
 
     sample([rng,] ξ, z)                             # Sample from the model, given the current population size
 ```
@@ -167,13 +167,13 @@ function BinaryFluctuatingKModel(β::T, psdbp_distribution::S) where {T<:Real, S
     BinaryFluctuatingKModel{T,S}(β, psdbp_distribution)
 end
 function BinaryFluctuatingKModel(psdbp_distribution::S) where {S<:PSDBPDistribution}
-    BinaryFluctuatingKModel(5//4, psdbp_distribution)
+    BinaryFluctuatingKModel(3//2, psdbp_distribution)
 end
 function BinaryFluctuatingKModel(β::T) where {T<:Real}
     BinaryFluctuatingKModel(β, BevertonHoltModel())
 end
 function BinaryFluctuatingKModel()
-    BinaryFluctuatingKModel(5//4, BevertonHoltModel())
+    BinaryFluctuatingKModel(3//2, BevertonHoltModel())
 end
 
 function sample(rng::AbstractRNG, ξ::BinaryFluctuatingKModel, z::Integer)::Int

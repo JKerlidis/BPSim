@@ -12,6 +12,11 @@ export
     simulate_trajectory,
     plot_trajectory,
 
+    # Statistics
+    mean,
+    variance,
+    std,
+
     # Abstract types
     OffspringDistribution,
     GaltonWatsonDistribution,
@@ -29,6 +34,7 @@ export
     BinaryFluctuatingKModel
 
 include("offspring_distributions.jl")
+include("statistics.jl")
 
 # Simulate the trajectory of a generic branching process
 function simulate_trajectory(n::Integer, ξ::OffspringDistribution, Z₀::Integer=1)
@@ -45,6 +51,9 @@ function simulate_trajectory(n::Integer, ξ::OffspringDistribution, Z₀::Intege
 
     return Z
 end
+
+# function simulate_trajectory(n::Integer, ξ::OffspringDistribution, Z₀::Integer=1; nreps::Integer)
+# end
 
 # Plot the trajectory of a branching process
 function plot_trajectory(trajectory, K=nothing)
@@ -68,11 +77,7 @@ function plot_trajectory(trajectory, K=nothing)
     return p
 end
 
-trajectory = simulate_trajectory(
-    1000,
-    RickerModel()
-)
-# println(trajectory)
+trajectory = simulate_trajectory(1000, BinaryFluctuatingKModel(100, BevertonHoltModel(500)))
 display(plot_trajectory(trajectory))
 
 end
