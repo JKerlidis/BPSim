@@ -35,6 +35,8 @@ function k_step_tvd_bound(;k::Integer, z::Real, h::Real, R::Real, η::Real, σ²
     m ≤ 0 && throw(DomainError(m, "argument must be positive"))
     0 ≤ α ≤ 1 || throw(DomainError(α, "argument must be in the range [0, 1]"))
 
+    σ³ = σ²^(3/2)
+
     b₁ = (√2(3R + 2(1+h)σ²)) / (σ²*min(h,1)√(π*η))
     b₂ = ((5√(2π) + 3π/2)(1+h)R + h*σ²) / (σ³√(2π*h^3))
     b = b₁ + b₂
