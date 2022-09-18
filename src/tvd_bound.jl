@@ -17,7 +17,7 @@ function one_step_tvd_bound(;z::Real, h::Real, R::Real, η::Real, σ²::Real)
 end
 
 
-# Calculate an upper bounds on the k-step total variation distance between a
+# Calculate an upper bound on the k-step total variation distance between a
 # PSDBP and a CBP with matching first and second moments, started from th same
 # point. See Corollary 4.3.3 for details
 function k_step_tvd_bound(;k::Integer, z::Real, h::Real, R::Real, η::Real, σ²::Real, m::Real, α::Real)
