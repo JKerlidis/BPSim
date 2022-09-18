@@ -20,7 +20,7 @@ Methods:
 struct BinaryOffspring{T<:Real} <: GaltonWatsonDistribution
     p::T
     function BinaryOffspring{T}(p) where {T<:Real}
-        zero(p) <= p <= one(p) || throw(DomainError(p, "argument must be in the range [0,1]"))
+        zero(p) ≤ p ≤ one(p) || throw(DomainError(p, "argument must be in the range [0,1]"))
         new(p)
     end
 end
@@ -57,7 +57,7 @@ Methods:
 struct GeometricOffspring{T<:Real} <: GaltonWatsonDistribution
     p::T
     function GeometricOffspring{T}(p) where {T<:Real}
-        zero(p) < p <= one(p) || throw(DomainError(p, "argument must be in the range (0,1]"))
+        zero(p) < p ≤ one(p) || throw(DomainError(p, "argument must be in the range (0,1]"))
         new(p)
     end
 end
@@ -94,7 +94,7 @@ Methods:
 struct PoissonOffspring{T<:Real} <: GaltonWatsonDistribution
     λ::T
     function PoissonOffspring{T}(λ) where {T<:Real}
-        λ >= zero(λ) || throw(DomainError(λ, "argument must be in the range [0,∞)"))
+        λ ≥ zero(λ) || throw(DomainError(λ, "argument must be in the range [0,∞)"))
         new(λ)
     end
 end
@@ -134,8 +134,8 @@ struct BinomialOffspring{T<:Real} <: GaltonWatsonDistribution
     n::Int
     p::T
     function BinomialOffspring{T}(n,p) where {T<:Real}
-        n >= 0 || throw(DomainError(n, "argument must be a non-negative integer"))
-        zero(p) <= p <= one(p) || throw(DomainError(p, "argument must be in the range [0,1]"))
+        n ≥ 0 || throw(DomainError(n, "argument must be a non-negative integer"))
+        zero(p) ≤ p ≤ one(p) || throw(DomainError(p, "argument must be in the range [0,1]"))
         new(n, p)
     end
 end
