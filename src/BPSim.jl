@@ -7,7 +7,7 @@ using Random
 using Setfield
 
 export
-    # Functions
+    # Simulations
     sample,
     simulate_trajectory,
     plot_trajectory,
@@ -16,6 +16,10 @@ export
     mean,
     variance,
     std,
+
+    # Total variation distance bounds
+    one_step_tvd_bound,
+    k_step_tvd_bound,
 
     # Abstract types
     OffspringDistribution,
@@ -36,6 +40,7 @@ export
 include("offspring_distributions.jl")
 include("simulate.jl")
 include("statistics.jl")
+include("tvd_bound.jl")
 
 
 # Plot the trajectory of a branching process
