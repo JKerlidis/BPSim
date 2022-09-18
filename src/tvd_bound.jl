@@ -33,7 +33,7 @@ function k_step_tvd_bound(;k::Integer, z::Real, h::Real, R::Real, η::Real, σ²
     0 ≤ η ≤ 1//4 || throw(DomainError(η, "argument must be in the range [0, 1/4]"))
     σ² ≤ 0 && throw(DomainError(σ², "argument must be positive"))
     m ≤ 0 && throw(DomainError(m, "argument must be positive"))
-    0 ≤ α ≤ 1 || throw(DomainError(α, "argument must be in the range [0, 1]"))
+    0 < α < 1 || throw(DomainError(α, "argument must be in the range (0, 1)"))
 
     σ³ = σ²^(3/2)
 
