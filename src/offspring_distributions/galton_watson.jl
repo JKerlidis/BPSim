@@ -10,7 +10,7 @@ P(ξ = 0) = 1-p, \\quad P(ξ = 2) = p,  \\quad p \\in [0,1].
 Methods:
 ```julia
     BinaryOffspring(p)      # Binary splitting distribution with reproduction probability p
-    BinaryOffspring()       # Binary splitting distribution with p=2/3
+    BinaryOffspring()       # Binary splitting distribution with p=0.5
 
     sample([rng,] ξ)        # Sample a random observation from the distribution
     mean(ξ)                 # Get the distribution mean
@@ -26,7 +26,7 @@ struct BinaryOffspring{T<:Real} <: GWOffspringDistribution
 end
 
 BinaryOffspring(p::T) where {T<:Real} = BinaryOffspring{T}(p)
-BinaryOffspring() = BinaryOffspring(2//3)
+BinaryOffspring() = BinaryOffspring(0.5)
 
 function sample(rng::AbstractRNG, ξ::BinaryOffspring)::Int
     rand(rng) > ξ.p ? 0 : 2

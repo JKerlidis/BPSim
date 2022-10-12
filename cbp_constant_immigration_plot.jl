@@ -7,15 +7,18 @@ using Plots
 using Plots.PlotMeasures
 
 seed = 98
-K = 100
 
-BH_trajectory = simulate_trajectory(BevertonHoltModel(K, BinomialOffspring(2)), 10; nsteps=1000, seed=seed)
-BH_trajectory = permutedims(BH_trajectory)
+function add_one(z::Integer)::Integer
+    z + 1
+end
+
+CBP_trajectory = simulate_trajectory(BinaryOffspring(), 3, add_one; nsteps=50, seed=seed)
+CBP_trajectory = permutedims(CBP_trajectory)
 
 p = plot(
-    0:length(BH_trajectory)-1,
-    BH_trajectory,
-    title = "Trajectory of a PSDBP satisfying the Beverton-Holt model",
+    0:length(CBP_trajectory)-1,
+    CBP_trajectory,
+    title = "Trajectory of a CBP with a constant rate of immigration",
     xlabel = "Generation",
     ylabel = "Population Size",
     linecolor = :purple,
@@ -26,13 +29,15 @@ p = plot(
     titlefontsize = 24,
     tickfontsize = 16,
     guidefontsize = 16,
-    size = (2000, 800),
+    size = (1400, 1000),
     bottom_margin = 12mm,
     left_margin = 12mm,
     top_margin = 3mm
 )
 
-p = hline!([K], linecolor = :grey, linealpha = 0.2)
+p = hline!([0], linecolor = :grey, linealpha = 0.2)
+p = scatter!([2], [0], markercolor = "red", shape=:star4, markersize = 6)
+
 
 display(p)
 
