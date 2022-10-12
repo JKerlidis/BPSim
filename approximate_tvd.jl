@@ -1,13 +1,15 @@
 module ApproximateTVD
 
-using Decimals
+include("src/BPSim.jl")
+
+using .BPSim
 using Distributions
 
 # trajectory = simulate_trajectory(BinaryFluctuatingKModel(100, BevertonHoltModel(500)); nsteps=10)
 # display(plot_trajectory(trajectory))
 
-p = Binomial(3, 1//2)
-println(typeof(pdf(p, 3)))
+p = BinomialOffspring(3, 1//2)
+println(prob(p, 3))
 
 end
 

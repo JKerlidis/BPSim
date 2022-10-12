@@ -17,7 +17,7 @@ Methods:
     variance(ξ)             # Get the distribution variance
 ```
 """
-struct BinaryOffspring{T<:Real} <: GaltonWatsonDistribution
+struct BinaryOffspring{T<:Real} <: GWOffspringDistribution
     p::T
     function BinaryOffspring{T}(p) where {T<:Real}
         zero(p) ≤ p ≤ one(p) || throw(DomainError(p, "argument must be in the range [0,1]"))
@@ -30,6 +30,15 @@ BinaryOffspring() = BinaryOffspring(2//3)
 
 function sample(rng::AbstractRNG, ξ::BinaryOffspring)::Int
     rand(rng) > ξ.p ? 0 : 2
+end
+function prob(ξ::BinaryOffspring, x::Integer)
+    if x == 0
+        1 - ξ.p
+    elseif x == 2
+        ξ.p
+    else
+        0
+    end
 end
 mean(ξ::BinaryOffspring) = 2*ξ.p
 variance(ξ::BinaryOffspring) = 4*ξ.p - (2*ξ.p)^2
@@ -54,7 +63,7 @@ Methods:
     variance(ξ)             # Get the distribution variance
 ```
 """
-struct GeometricOffspring{T<:Real} <: GaltonWatsonDistribution
+struct GeometricOffspring{T<:Real} <: GWOffspringDistribution
     p::T
     function GeometricOffspring{T}(p) where {T<:Real}
         zero(p) < p ≤ one(p) || throw(DomainError(p, "argument must be in the range (0,1]"))
@@ -68,6 +77,7 @@ GeometricOffspring() = GeometricOffspring(1//2)
 function sample(rng::AbstractRNG, ξ::GeometricOffspring)::Int
     floor(Int, log(rand(rng)) / log(1 - ξ.p))
 end
+prob(ξ::GeometricOffspring, x::Integer) = pdf(Geometric(ξ.p), x)
 mean(ξ::GeometricOffspring) = (1 - ξ.p) // ξ.p
 variance(ξ::GeometricOffspring) = (1 - ξ.p) // ξ.p^2
 
@@ -91,7 +101,7 @@ Methods:
     variance(ξ)             # Get the distribution variance
 ```
 """
-struct PoissonOffspring{T<:Real} <: GaltonWatsonDistribution
+struct PoissonOffspring{T<:Real} <: GWOffspringDistribution
     λ::T
     function PoissonOffspring{T}(λ) where {T<:Real}
         λ ≥ zero(λ) || throw(DomainError(λ, "argument must be in the range [0,∞)"))
@@ -105,6 +115,7 @@ PoissonOffspring() = PoissonOffspring(1)
 function sample(rng::AbstractRNG, ξ::PoissonOffspring)::Int
     rand(rng, Poisson(ξ.λ))
 end
+prob(ξ::PoissonOffspring, x::Integer) = pdf(Poisson(ξ.λ), x)
 mean(ξ::PoissonOffspring) = ξ.λ
 variance(ξ::PoissonOffspring) = ξ.λ
 
@@ -130,7 +141,7 @@ Methods:
     variance(ξ)             # Get the distribution variance
 ```
 """
-struct BinomialOffspring{T<:Real} <: GaltonWatsonDistribution
+struct BinomialOffspring{T<:Real} <: GWOffspringDistribution
     n::Int
     p::T
     function BinomialOffspring{T}(n,p) where {T<:Real}
@@ -148,5 +159,6 @@ BinomialOffspring() = BinomialOffspring(3, 1//2)
 function sample(rng::AbstractRNG, ξ::BinomialOffspring)::Int
     rand(rng, Binomial(ξ.n, ξ.p))
 end
+prob(ξ::BinomialOffspring, x::Integer) = pdf(Binomial(ξ.n, ξ.p), x)
 mean(ξ::BinomialOffspring) = ξ.n * ξ.p
 variance(ξ::BinomialOffspring) = ξ.n * ξ.p * (1 - ξ.p)

@@ -1,9 +1,13 @@
 # Simulate the trajectory of a generic branching process `nreps` times
-function simulate_trajectory(ξ::OffspringDistribution, Z₀::Integer=1; nsteps::Integer, nreps::Integer=1)
+function simulate_trajectory(ξ::OffspringDistribution, Z₀::Integer=1; nsteps::Integer, nreps::Integer=1, seed=nothing)
     nsteps < 0 && throw(DomainError(nsteps, "argument must be nonnegative"))
     nreps < 0 && throw(DomainError(nreps, "argument must be nonnegative"))
 
-    rng = Xoshiro()
+    if !isnothing(seed)
+        rng = Xoshiro(seed)
+    else
+        rng = Xoshiro()
+    end
 
     Z = zeros(Int, nreps, nsteps + 1)
 

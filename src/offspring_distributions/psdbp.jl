@@ -1,7 +1,7 @@
 """
     BevertonHoltModel(K, base_distribution)
 
-A *Beverton-Holt (BH) model* taking observations from a specified GaltonWatsonDistribution object:
+A *Beverton-Holt (BH) model* taking observations from a specified GWOffspringDistribution object:
 
 ```math
 m(z) = \\frac{2K}{K + z}, \\quad K > 0.
@@ -17,22 +17,22 @@ Methods:
     sample([rng,] ξ, z)                     # Sample from the model, given the current population size
 ```
 """
-struct BevertonHoltModel{T<:GaltonWatsonDistribution} <: PSDBPDistribution
+struct BevertonHoltModel{T<:GWOffspringDistribution} <: PSDBPOffspringDistribution
     K::Int
     base_distribution::T
-    function BevertonHoltModel{T}(K::Int, base_distribution) where {T<:GaltonWatsonDistribution}
+    function BevertonHoltModel{T}(K::Int, base_distribution) where {T<:GWOffspringDistribution}
         K > 0 || throw(DomainError(K, "argument must be a positive integer"))
         new(K, base_distribution)
     end
 end
 
-function BevertonHoltModel(K::Int, base_distribution::T) where {T<:GaltonWatsonDistribution}
+function BevertonHoltModel(K::Int, base_distribution::T) where {T<:GWOffspringDistribution}
     BevertonHoltModel{T}(K, base_distribution)
 end
 function BevertonHoltModel(K::Int)
     BevertonHoltModel(K, BinaryOffspring())
 end
-function BevertonHoltModel(base_distribution::T) where {T<:GaltonWatsonDistribution}
+function BevertonHoltModel(base_distribution::T) where {T<:GWOffspringDistribution}
     BevertonHoltModel(100, base_distribution)
 end
 function BevertonHoltModel()
@@ -60,7 +60,7 @@ end
 """
     RickerModel(K, r, base_distribution)
 
-A *Ricker model* taking observations from a specified GaltonWatsonDistribution object:
+A *Ricker model* taking observations from a specified GWOffspringDistribution object:
 
 ```math
 m(z) = r^{1 - \frac{z}{K}}, \\quad r > 1, \\; K > 0.
@@ -78,30 +78,30 @@ Methods:
     sample([rng,] ξ. z)                     # Sample from the model, given the current population size
 ```
 """
-struct RickerModel{T<:Real, S<:GaltonWatsonDistribution} <: PSDBPDistribution
+struct RickerModel{T<:Real, S<:GWOffspringDistribution} <: PSDBPOffspringDistribution
     K::Int
     r::T
     base_distribution::S
-    function RickerModel{T,S}(K::Int, r, base_distribution) where {T<:Real, S<:GaltonWatsonDistribution}
+    function RickerModel{T,S}(K::Int, r, base_distribution) where {T<:Real, S<:GWOffspringDistribution}
         K > 0 || throw(DomainError(K, "argument must be a positive integer"))
         r > one(r) || throw(DomainError(r, "argument must be in the range (1,∞)"))
         new(K, r, base_distribution)
     end
 end
 
-function RickerModel(K::Int, r::T, base_distribution::S) where {T<:Real, S <:GaltonWatsonDistribution}
+function RickerModel(K::Int, r::T, base_distribution::S) where {T<:Real, S <:GWOffspringDistribution}
     RickerModel{T,S}(K, r, base_distribution)
 end
 function RickerModel(K::Int, r::T) where {T<:Real}
     RickerModel(K, r, BinaryOffspring())
 end
-function RickerModel(K::Int, base_distribution::S) where {S<:GaltonWatsonDistribution}
+function RickerModel(K::Int, base_distribution::S) where {S<:GWOffspringDistribution}
     RickerModel(K, 2, base_distribution)
 end
 function RickerModel(K::Int)
     RickerModel(K, 2, BinaryOffspring())
 end
-function RickerModel(base_distribution::S) where {S<:GaltonWatsonDistribution}
+function RickerModel(base_distribution::S) where {S<:GWOffspringDistribution}
     RickerModel(100, 2, base_distribution)
 end
 function RickerModel()
@@ -129,7 +129,7 @@ end
 """
     BinaryFluctuatingKModel(β, base_distribution)
 
-A *binary fluctuating carrying capacity model* over an underlying PSDBPDistribution object.
+A *binary fluctuating carrying capacity model* over an underlying PSDBPOffspringDistribution object.
 With equal chance, the model will return an observation from the underlying PSDBP with K
 either increased or decreased by a factor of β. As an example, the following would result
 for an underlying Beverton-Holt model:
@@ -151,10 +151,10 @@ Methods:
     sample([rng,] ξ, z)                             # Sample from the model, given the current population size
 ```
 """
-struct BinaryFluctuatingKModel{T<:Real, S<:PSDBPDistribution} <: PSDBPDistribution
+struct BinaryFluctuatingKModel{T<:Real, S<:PSDBPOffspringDistribution} <: PSDBPOffspringDistribution
     β::T
     psdbp_distribution::S
-    function BinaryFluctuatingKModel{T,S}(β, psdbp_distribution) where {T<:Real, S<:PSDBPDistribution}
+    function BinaryFluctuatingKModel{T,S}(β, psdbp_distribution) where {T<:Real, S<:PSDBPOffspringDistribution}
         β > zero(β) || throw(DomainError(β, "argument must be in the range (0,∞)"))
         if !hasfield(typeof(psdbp_distribution), :K)
             throw(ArgumentError("the given psdbp_distribution does not have a 'K' field"))
@@ -163,10 +163,10 @@ struct BinaryFluctuatingKModel{T<:Real, S<:PSDBPDistribution} <: PSDBPDistributi
     end
 end
 
-function BinaryFluctuatingKModel(β::T, psdbp_distribution::S) where {T<:Real, S<:PSDBPDistribution}
+function BinaryFluctuatingKModel(β::T, psdbp_distribution::S) where {T<:Real, S<:PSDBPOffspringDistribution}
     BinaryFluctuatingKModel{T,S}(β, psdbp_distribution)
 end
-function BinaryFluctuatingKModel(psdbp_distribution::S) where {S<:PSDBPDistribution}
+function BinaryFluctuatingKModel(psdbp_distribution::S) where {S<:PSDBPOffspringDistribution}
     BinaryFluctuatingKModel(3//2, psdbp_distribution)
 end
 function BinaryFluctuatingKModel(β::T) where {T<:Real}

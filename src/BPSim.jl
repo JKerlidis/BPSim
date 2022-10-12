@@ -9,8 +9,12 @@ using Setfield
 export
     # Simulations
     sample,
+    prob,
     simulate_trajectory,
+
+    # Plotting
     plot_trajectory,
+    plot_trajectories,
 
     # Statistics
     mean,
@@ -23,8 +27,8 @@ export
 
     # Abstract types
     OffspringDistribution,
-    GaltonWatsonDistribution,
-    PSDBPDistribution,
+    GWOffspringDistribution,
+    PSDBPOffspringDistribution,
 
     # Galton-Watson offspring distributions
     BinaryOffspring,
