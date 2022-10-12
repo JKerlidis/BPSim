@@ -40,19 +40,19 @@ function BevertonHoltModel()
 end
 
 function sample(rng::AbstractRNG, ξ::BevertonHoltModel{<:BinaryOffspring}, z::Integer)::Int
-    p = ξ.K // (ξ.K + z)
+    p = ξ.K / (ξ.K + z)
     sample(rng, BinaryOffspring(p))
 end
 function sample(rng::AbstractRNG, ξ::BevertonHoltModel{<:GeometricOffspring}, z::Integer)::Int
-    p = (ξ.K + z) // (3*ξ.K + z)
+    p = (ξ.K + z) / (3*ξ.K + z)
     sample(rng, GeometricOffspring(p))
 end
 function sample(rng::AbstractRNG, ξ::BevertonHoltModel{<:PoissonOffspring}, z::Integer)::Int
-    λ = (2*ξ.K) // (ξ.K + z)
+    λ = (2*ξ.K) / (ξ.K + z)
     sample(rng, PoissonOffspring(λ))
 end
 function sample(rng::AbstractRNG, ξ::BevertonHoltModel{<:BinomialOffspring}, z::Integer)::Int
-    p = (2*ξ.K) // (ξ.base_distribution.n * (ξ.K + z))
+    p = (2*ξ.K) / (ξ.base_distribution.n * (ξ.K + z))
     sample(rng, BinomialOffspring(ξ.base_distribution.n, p))
 end
 

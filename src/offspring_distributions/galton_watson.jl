@@ -78,8 +78,8 @@ function sample(rng::AbstractRNG, ξ::GeometricOffspring)::Int
     floor(Int, log(rand(rng)) / log(1 - ξ.p))
 end
 prob(ξ::GeometricOffspring, x::Integer) = pdf(Geometric(ξ.p), x)
-mean(ξ::GeometricOffspring) = (1 - ξ.p) // ξ.p
-variance(ξ::GeometricOffspring) = (1 - ξ.p) // ξ.p^2
+mean(ξ::GeometricOffspring) = (1 - ξ.p) / ξ.p
+variance(ξ::GeometricOffspring) = (1 - ξ.p) / ξ.p^2
 
 
 """
@@ -153,8 +153,8 @@ end
 
 BinomialOffspring(n::Int, p::T) where {T<:Real} = BinomialOffspring{T}(n, p)
 BinomialOffspring(p::T) where {T<:Real} = BinomialOffspring{T}(3, p)
-BinomialOffspring(n::Int) = BinomialOffspring(n, 1//2)
-BinomialOffspring() = BinomialOffspring(3, 1//2)
+BinomialOffspring(n::Int) = BinomialOffspring(n, 0.5)
+BinomialOffspring() = BinomialOffspring(3, 0.5)
 
 function sample(rng::AbstractRNG, ξ::BinomialOffspring)::Int
     rand(rng, Binomial(ξ.n, ξ.p))

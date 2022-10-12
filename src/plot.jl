@@ -1,5 +1,7 @@
 # Plot the trajectory of a branching process
 function plot_trajectory(trajectory; K=nothing)
+    trajectory = permutedims(trajectories)
+
     p = plot(
         0:length(trajectory)-1,
         trajectory,
