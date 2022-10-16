@@ -36,6 +36,6 @@ p = plot(
     legend = false
 )
 
-savefig(p, "/mnt/c/Users/james/OneDrive/University/Data Science Subjects/2022/Branching Processes/PSDBPs and CBPs/images/surface_plot.png")
+display(p)
 
 end
