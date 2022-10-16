@@ -9,14 +9,14 @@ using Plots.PlotMeasures
 k = 1:50
 z_exp = 5:12
 
-function zip_tvd_bound(z_exp::Integer, k::Integer)
+function zip_nb_tvd_bound(z_exp::Integer, k::Integer)
     min(k_step_tvd_bound(k=k, z=10^z_exp, h=1, R=44.75, η=0.063, σ²=2, m=1, α=0.999), 1)
 end
 
 p = plot(
     z_exp,
     k,
-    zip_tvd_bound,
+    zip_nb_tvd_bound,
     st = :surface,
     title = "TVD upper bound",
     xlabel = "\nPopulation Size",
