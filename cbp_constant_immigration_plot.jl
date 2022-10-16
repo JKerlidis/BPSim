@@ -40,5 +40,6 @@ p = scatter!([2], [0], markercolor = "red", shape=:star4, markersize = 6)
 
 
 display(p)
+# savefig(p, "/mnt/c/Users/james/OneDrive/University/Data Science Subjects/2022/Branching Processes/PSDBPs and CBPs/images/cbp_constant_immigration.png")
 
 end
