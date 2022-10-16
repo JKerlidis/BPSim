@@ -11,9 +11,21 @@ using Plots.PlotMeasures
 k = 1:50
 z_exp = 4:10
 
-function zip_nb_tvd_bound(z_exp::Integer, k::Integer)
-    min(k_step_tvd_bound(k=k, z=10^z_exp, h=1, R=10.5, η=0.063, σ²=2, m=1, α=0.999), 1)
+function zip_nb_tvd_bound(z_exp::Integer, k::Integer; truncate=true)
+    K = k_step_tvd_bound(k=k, z=10^z_exp, h=1, R=10.5, η=0.063, σ²=2, m=1, α=0.999)
+    if truncate
+        return min(K, 1)
+    else
+        return K
+    end
 end
+
+one_step_bounds = zeros(Float64, 11)
+for i in 1:10
+    one_step_bounds[i] = zip_nb_tvd_bound(i, 1; truncate=false)
+end
+
+println(one_step_bounds)
 
 p = plot(
     z_exp,
