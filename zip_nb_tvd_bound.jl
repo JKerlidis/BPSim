@@ -32,7 +32,7 @@ p = plot(
     titlefontsize = 24,
     tickfontsize = 16,
     guidefontsize = 16,
-    size = (1800, 1200),
+    size = (1800, 1800),
     legend = false
 )
 
