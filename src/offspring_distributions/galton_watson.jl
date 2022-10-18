@@ -31,6 +31,7 @@ BinaryOffspring() = BinaryOffspring(0.5)
 function sample(rng::AbstractRNG, ξ::BinaryOffspring)::Int
     rand(rng) > ξ.p ? 0 : 2
 end
+
 function prob(ξ::BinaryOffspring, x::Integer)
     if x == 0
         1 - ξ.p
@@ -77,6 +78,7 @@ GeometricOffspring() = GeometricOffspring(1//2)
 function sample(rng::AbstractRNG, ξ::GeometricOffspring)::Int
     floor(Int, log(rand(rng)) / log(1 - ξ.p))
 end
+
 prob(ξ::GeometricOffspring, x::Integer) = pdf(Geometric(ξ.p), x)
 mean(ξ::GeometricOffspring) = (1 - ξ.p) / ξ.p
 variance(ξ::GeometricOffspring) = (1 - ξ.p) / ξ.p^2
@@ -115,6 +117,7 @@ PoissonOffspring() = PoissonOffspring(1)
 function sample(rng::AbstractRNG, ξ::PoissonOffspring)::Int
     rand(rng, Poisson(ξ.λ))
 end
+
 prob(ξ::PoissonOffspring, x::Integer) = pdf(Poisson(ξ.λ), x)
 mean(ξ::PoissonOffspring) = ξ.λ
 variance(ξ::PoissonOffspring) = ξ.λ
@@ -159,6 +162,7 @@ BinomialOffspring() = BinomialOffspring(3, 0.5)
 function sample(rng::AbstractRNG, ξ::BinomialOffspring)::Int
     rand(rng, Binomial(ξ.n, ξ.p))
 end
+
 prob(ξ::BinomialOffspring, x::Integer) = pdf(Binomial(ξ.n, ξ.p), x)
 mean(ξ::BinomialOffspring) = ξ.n * ξ.p
 variance(ξ::BinomialOffspring) = ξ.n * ξ.p * (1 - ξ.p)

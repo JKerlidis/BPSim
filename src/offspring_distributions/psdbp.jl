@@ -26,31 +26,39 @@ struct BevertonHoltModel{T<:GWOffspringDistribution} <: PSDBPOffspringDistributi
     end
 end
 
+
 function BevertonHoltModel(K::Int, base_distribution::T) where {T<:GWOffspringDistribution}
     BevertonHoltModel{T}(K, base_distribution)
 end
+
 function BevertonHoltModel(K::Int)
     BevertonHoltModel(K, BinaryOffspring())
 end
+
 function BevertonHoltModel(base_distribution::T) where {T<:GWOffspringDistribution}
     BevertonHoltModel(100, base_distribution)
 end
+
 function BevertonHoltModel()
     BevertonHoltModel(100, BinaryOffspring())
 end
+
 
 function sample(rng::AbstractRNG, ξ::BevertonHoltModel{<:BinaryOffspring}, z::Integer)::Int
     p = ξ.K / (ξ.K + z)
     sample(rng, BinaryOffspring(p))
 end
+
 function sample(rng::AbstractRNG, ξ::BevertonHoltModel{<:GeometricOffspring}, z::Integer)::Int
     p = (ξ.K + z) / (3*ξ.K + z)
     sample(rng, GeometricOffspring(p))
 end
+
 function sample(rng::AbstractRNG, ξ::BevertonHoltModel{<:PoissonOffspring}, z::Integer)::Int
     λ = (2*ξ.K) / (ξ.K + z)
     sample(rng, PoissonOffspring(λ))
 end
+
 function sample(rng::AbstractRNG, ξ::BevertonHoltModel{<:BinomialOffspring}, z::Integer)::Int
     p = (2*ξ.K) / (ξ.base_distribution.n * (ξ.K + z))
     sample(rng, BinomialOffspring(ξ.base_distribution.n, p))
@@ -89,37 +97,47 @@ struct RickerModel{T<:Real, S<:GWOffspringDistribution} <: PSDBPOffspringDistrib
     end
 end
 
+
 function RickerModel(K::Int, r::T, base_distribution::S) where {T<:Real, S <:GWOffspringDistribution}
     RickerModel{T,S}(K, r, base_distribution)
 end
+
 function RickerModel(K::Int, r::T) where {T<:Real}
     RickerModel(K, r, BinaryOffspring())
 end
+
 function RickerModel(K::Int, base_distribution::S) where {S<:GWOffspringDistribution}
     RickerModel(K, 2, base_distribution)
 end
+
 function RickerModel(K::Int)
     RickerModel(K, 2, BinaryOffspring())
 end
+
 function RickerModel(base_distribution::S) where {S<:GWOffspringDistribution}
     RickerModel(100, 2, base_distribution)
 end
+
 function RickerModel()
     RickerModel(100, 2, BinaryOffspring())
 end
+
 
 function sample(rng::AbstractRNG, ξ::RickerModel{<:Real, <:BinaryOffspring}, z::Integer)::Int
     p = ξ.r^(1 - z/ξ.K) / 2
     sample(rng, BinaryOffspring(p))
 end
+
 function sample(rng::AbstractRNG, ξ::RickerModel{<:Real, <:GeometricOffspring}, z::Integer)::Int
     p = 1 / (ξ.r^(z/ξ.K - 1) + 1)
     sample(rng, GeometricOffspring(p))
 end
+
 function sample(rng::AbstractRNG, ξ::RickerModel{<:Real, <:PoissonOffspring}, z::Integer)::Int
     λ = ξ.r^(1 - z/ξ.K)
     sample(rng, PoissonOffspring(λ))
 end
+
 function sample(rng::AbstractRNG, ξ::RickerModel{<:Real, <:BinomialOffspring}, z::Integer)::Int
     p = ξ.r^(1 - z/ξ.K) / ξ.base_distribution.n
     sample(rng, BinomialOffspring(ξ.base_distribution.n, p))
@@ -166,15 +184,19 @@ end
 function BinaryFluctuatingKModel(β::T, psdbp_distribution::S) where {T<:Real, S<:PSDBPOffspringDistribution}
     BinaryFluctuatingKModel{T,S}(β, psdbp_distribution)
 end
+
 function BinaryFluctuatingKModel(psdbp_distribution::S) where {S<:PSDBPOffspringDistribution}
     BinaryFluctuatingKModel(3//2, psdbp_distribution)
 end
+
 function BinaryFluctuatingKModel(β::T) where {T<:Real}
     BinaryFluctuatingKModel(β, BevertonHoltModel())
 end
+
 function BinaryFluctuatingKModel()
     BinaryFluctuatingKModel(3//2, BevertonHoltModel())
 end
+
 
 function sample(rng::AbstractRNG, ξ::BinaryFluctuatingKModel, z::Integer)::Int
     if rand(rng) > 0.5

@@ -1,21 +1,28 @@
-module CarryingCapacityPSDBPPlot
+module CBPRandomExtinctionPlot
 
 include("src/BPSim.jl")
 
 using .BPSim
+using Distributions
+using Random
 using Plots
 using Plots.PlotMeasures
 
 seed = 98
 
+function extinction_events(rng::AbstractRNG, z::Integer)::Int
+    p = z == 0 ? 1 : exp((1-z)/1000)
+    (z + 1) * rand(rng, Bernoulli(p))
+end
+
 CBP_trajectory = simulate_trajectory(
-    ControlFunction(z -> z + 1), BinaryOffspring(), 3; nsteps=50, seed=seed
+    ControlFunction(extinction_events), BinomialOffspring(5, 0.2), 1; nsteps=300, seed=seed
 )
 
 p = plot(
     0:length(CBP_trajectory)-1,
     CBP_trajectory,
-    title = "Trajectory of a CBP with a constant rate of immigration",
+    title = "Trajectory of a CBP with immigration and random extinction events",
     xlabel = "Generation",
     ylabel = "Population Size",
     linecolor = :purple,
@@ -33,8 +40,6 @@ p = plot(
 )
 
 p = hline!([0], linecolor = :grey, linealpha = 0.2)
-p = scatter!([2], [0], markercolor = "red", shape=:star4, markersize = 6)
-
 
 display(p)
 

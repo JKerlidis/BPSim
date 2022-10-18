@@ -39,9 +39,14 @@ export
     # PSDBP offspring distributions
     BevertonHoltModel,
     RickerModel,
-    BinaryFluctuatingKModel
+    BinaryFluctuatingKModel,
+
+    # Control functions
+    ControlFunction
+
 
 include("offspring_distributions.jl")
+include("control_functions.jl")
 include("simulate.jl")
 include("statistics.jl")
 include("tvd_bound.jl")

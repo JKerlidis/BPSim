@@ -10,7 +10,6 @@ seed = 98
 K = 100
 
 BH_trajectory = simulate_trajectory(BevertonHoltModel(K, BinomialOffspring(2)), 10; nsteps=1000, seed=seed)
-BH_trajectory = permutedims(BH_trajectory)
 
 p = plot(
     0:length(BH_trajectory)-1,
