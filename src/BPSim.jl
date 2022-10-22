@@ -40,6 +40,7 @@ export
     BevertonHoltModel,
     RickerModel,
     BinaryFluctuatingKModel,
+    ZeroOneTwoOffspring,
 
     # Control functions
     ControlFunction

@@ -209,3 +209,40 @@ function sample(rng::AbstractRNG, ξ::BinaryFluctuatingKModel, z::Integer)::Int
     psdbp_distribution = @set psdbp_distribution.K = updated_K
     sample(rng, psdbp_distribution, z)
 end
+
+
+"""
+    ZeroOneTwoOffspring()
+
+A model that takes only the values zero, one and two, with prespecified probabilities.
+
+```math
+p_0 = \\frac{z^2 + z + 2}{4z^2}
+p_1 = \\frac{z^2 + z - 2}{2z^2}
+```
+
+Methods:
+```julia
+    ZeroOneTwoOffspring()   # A ZeroOneTwo distribution
+    sample([rng,] ξ, z)     # Sample from the distribution, given the current population size
+```
+"""
+struct ZeroOneTwoOffspring <: PSDBPOffspringDistribution end
+
+function sample(rng::AbstractRNG, _::ZeroOneTwoOffspring, z::Integer)::Int
+    if z ≤ 1
+        return 0
+    end
+
+    U = rand(rng)
+    p₀ = (z^2 + z + 2)/(4z^2)
+    p₁ = (z^2 + z - 2)/(2z^2)
+
+    if U ≤ p₀
+        0
+    elseif U ≤ p₀ + p₁
+        1
+    else
+        2
+    end
+end
