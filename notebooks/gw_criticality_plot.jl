@@ -1,6 +1,6 @@
 module GWCriticalityPlot
 
-include("src/BPSim.jl")
+include("../src/BPSim.jl")
 
 using .BPSim
 using Plots

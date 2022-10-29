@@ -1,6 +1,6 @@
-module CalculateTVDBounds
+module ZipNbTvdSurface
 
-include("src/BPSim.jl")
+include("../src/BPSim.jl")
 
 using .BPSim
 using Plots; pyplot()
@@ -19,13 +19,6 @@ function zip_nb_tvd_bound(z_exp::Integer, k::Integer; truncate=true)
         return K
     end
 end
-
-one_step_bounds = zeros(Float64, 11)
-for i in 1:10
-    one_step_bounds[i] = zip_nb_tvd_bound(i, 1; truncate=false)
-end
-
-println(one_step_bounds)
 
 p = plot(
     z_exp,
