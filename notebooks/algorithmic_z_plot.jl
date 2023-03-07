@@ -6,7 +6,7 @@ using Plots
 using Plots.PlotMeasures
 
 # Minimum probability of a NB(z+1, 0.5) distribution and a Poi(2*Bin(z+1, 0.5))
-# distribution (the sum of z+1 ZIP(2, 0.5) distributions)
+# distribution (the sum of z+1 ZIP(0.5, 2) distributions)
 function min_psdbp_dcbp_prob(z::Integer, k::Integer)
     psdbp_prob = pdf(NegativeBinomial(z+1, 0.5), k)
     dcbp_prob = pdf(Binomial(z+1, 0.5), 0)
