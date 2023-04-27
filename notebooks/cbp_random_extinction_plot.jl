@@ -11,7 +11,7 @@ using Plots.PlotMeasures
 seed = 98
 
 function extinction_events(rng::AbstractRNG, z::Integer)::Int
-    p = z == 0 ? 1 : exp((1-z)/1000)
+    p = z == 0 ? 1 : exp((1 - z) / 1000)
     (z + 1) * rand(rng, Bernoulli(p))
 end
 
@@ -22,25 +22,25 @@ CBP_trajectory = simulate_trajectory(
 p = plot(
     0:length(CBP_trajectory)-1,
     CBP_trajectory,
-    title = "Trajectory of a CBP with immigration and random extinction events",
-    xlabel = "Generation",
-    ylabel = "Population Size",
-    linecolor = :purple,
-    linealpha = 0.8,
-    linewidth = 2,
-    legend = false,
-    fontfamily = "Computer Modern",
-    titlefontsize = 24,
-    tickfontsize = 16,
-    guidefontsize = 16,
-    size = (1500, 800),
-    bottom_margin = 12mm,
-    left_margin = 12mm,
-    top_margin = 3mm
+    title="Trajectory of a CBP with immigration and random extinction events",
+    xlabel="Generation",
+    ylabel="Population Size",
+    linecolor=:grey20,
+    linealpha=0.8,
+    linewidth=3,
+    legend=false,
+    fontfamily="Computer Modern",
+    titlefontsize=48,
+    tickfontsize=32,
+    guidefontsize=42,
+    size=(3000, 1800),
+    bottom_margin=28mm,
+    left_margin=28mm,
+    top_margin=6mm
 )
 
-p = hline!([0], linecolor = :grey, linealpha = 0.2)
+p = hline!([0], linecolor=:grey, linealpha=0.4)
 
-display(p)
+savefig(p, "out/cbp_random_extinction_plot.png")
 
 end

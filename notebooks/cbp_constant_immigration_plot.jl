@@ -15,27 +15,27 @@ CBP_trajectory = simulate_trajectory(
 p = plot(
     0:length(CBP_trajectory)-1,
     CBP_trajectory,
-    title = "Trajectory of a CBP with a constant rate of immigration",
-    xlabel = "Generation",
-    ylabel = "Population Size",
-    linecolor = :purple,
-    linealpha = 0.8,
-    linewidth = 2,
-    legend = false,
-    fontfamily = "Computer Modern",
-    titlefontsize = 24,
-    tickfontsize = 16,
-    guidefontsize = 16,
-    size = (1400, 1000),
-    bottom_margin = 12mm,
-    left_margin = 12mm,
-    top_margin = 3mm
+    title="Trajectory of a CBP with a constant rate of immigration",
+    xlabel="Generation",
+    ylabel="Population Size",
+    linecolor=:grey20,
+    linealpha=0.8,
+    linewidth=3,
+    legend=false,
+    fontfamily="Computer Modern",
+    titlefontsize=48,
+    tickfontsize=32,
+    guidefontsize=42,
+    size=(3000, 2000),
+    bottom_margin=28mm,
+    left_margin=28mm,
+    top_margin=6mm
 )
 
-p = hline!([0], linecolor = :grey, linealpha = 0.2)
-p = scatter!([2], [0], markercolor = "red", shape=:star4, markersize = 6)
+p = hline!([0], linecolor=:grey, linealpha=0.4)
+p = scatter!([2], [0], markercolor="red", shape=:star4, markersize=6)
 
 
-display(p)
+savefig(p, "out/cbp_constant_immigration_plot.png")
 
 end

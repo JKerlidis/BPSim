@@ -20,44 +20,45 @@ CBP_trajectory = simulate_trajectory(
 p = plot(
     0:size(CBP_trajectory)[1]-1,
     CBP_trajectory,
-    title = "Trajectories of a PSDBP and DCBP with matching moments",
-    xlabel = "Generation",
-    ylabel = "Population Size",
-    linecolor = :purple,
-    linealpha = 0.6,
-    linewidth = 2,
-    fontfamily = "Computer Modern",
-    titlefontsize = 24,
-    tickfontsize = 16,
-    guidefontsize = 16,
-    label = false,
-    legend = :bottomleft,
-    ylims = (0, 2000),
-    size = (1600, 1000),
-    bottom_margin = 12mm,
-    left_margin = 12mm,
-    top_margin = 3mm
+    title="Trajectories of a PSDBP and DCBP with matching moments",
+    xlabel="Generation",
+    ylabel="Population Size",
+    linecolor=:purple,
+    linealpha=0.6,
+    linewidth=3,
+    fontfamily="Computer Modern",
+    titlefontsize=48,
+    tickfontsize=32,
+    guidefontsize=42,
+    label=false,
+    legend=:bottomleft,
+    ylims=(0, 2000),
+    size=(3200, 2000),
+    bottom_margin=28mm,
+    left_margin=28mm,
+    top_margin=6mm
 )
 
 
 p = plot!(
     0:size(PSDBP_trajectory)[1]-1,
     PSDBP_trajectory,
-    linecolor = :darkturquoise,
-    linealpha = 0.6,
-    linewidth = 2,
-    label = false
+    linecolor=:darkturquoise,
+    linealpha=0.6,
+    linewidth=3,
+    label=false
 )
 
 # Create the legend
 p = plot!(
-    [-10 -20; -30 -40 ],
-    linealpha = 0.6,
-    linewidth = 2,
+    [-10 -20; -30 -40],
+    linealpha=0.6,
+    legendfontsize=42,
+    linewidth=3,
     color=[:purple :darkturquoise],
     label=["DCBP trajectories" "PSDBP trajectories"]
 )
 
-display(p)
+savefig(p, "out/matching_moments_plot.png")
 
 end
