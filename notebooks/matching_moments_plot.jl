@@ -23,7 +23,7 @@ p = plot(
     title="Trajectories of a PSDBP and DCBP with matching moments",
     xlabel="Generation",
     ylabel="Population Size",
-    linecolor=:grey5,
+    linecolor=:purple,
     linealpha=0.6,
     linewidth=3,
     fontfamily="Computer Modern",
@@ -43,7 +43,7 @@ p = plot(
 p = plot!(
     0:size(PSDBP_trajectory)[1]-1,
     PSDBP_trajectory,
-    linecolor=:grey60,
+    linecolor=:darkturquoise,
     linealpha=0.6,
     linewidth=3,
     label=false
@@ -55,7 +55,7 @@ p = plot!(
     linealpha=0.6,
     legendfontsize=32,
     linewidth=3,
-    color=[:grey5 :grey60],
+    color=[:purple :darkturquoise],
     label=["DCBP trajectories" "PSDBP trajectories"]
 )
 
