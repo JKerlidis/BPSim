@@ -59,6 +59,6 @@ p = plot!(
     label=["DCBP trajectories" "PSDBP trajectories"]
 )
 
-savefig(p, "out/matching_moments_plot.png")
+savefig(p, "out/matching_moments_plot.pdf")
 
 end

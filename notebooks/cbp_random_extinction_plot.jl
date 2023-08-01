@@ -41,6 +41,6 @@ p = plot(
 
 p = hline!([0], linecolor=:grey, linealpha=0.4)
 
-savefig(p, "out/cbp_random_extinction_plot.png")
+savefig(p, "out/cbp_random_extinction_plot.pdf")
 
 end

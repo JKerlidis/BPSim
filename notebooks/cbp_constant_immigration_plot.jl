@@ -36,6 +36,6 @@ p = hline!([0], linecolor=:grey, linealpha=0.4)
 p = scatter!([2], [0], markercolor="red", shape=:star4, markersize=6)
 
 
-savefig(p, "out/cbp_constant_immigration_plot.png")
+savefig(p, "out/cbp_constant_immigration_plot.pdf")
 
 end

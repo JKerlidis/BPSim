@@ -56,6 +56,6 @@ p = hline!(
     legendfontsize=32,
 )
 
-savefig(p, "out/carrying_capacity_comparative_plot.png")
+savefig(p, "out/carrying_capacity_comparative_plot.pdf")
 
 end

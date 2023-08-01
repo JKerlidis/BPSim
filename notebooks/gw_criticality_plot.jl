@@ -37,6 +37,6 @@ p = plot(
     bottom_margin=5mm,
 )
 
-savefig(p, "out/gw_criticality_plot.png")
+savefig(p, "out/gw_criticality_plot.pdf")
 
 end

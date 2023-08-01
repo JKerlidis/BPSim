@@ -33,6 +33,6 @@ p = plot(
 
 p = hline!([K], linecolor=:grey, linealpha=0.4)
 
-savefig(p, "out/carrying_capacity_psdbp_plot.png")
+savefig(p, "out/carrying_capacity_psdbp_plot.pdf")
 
 end
