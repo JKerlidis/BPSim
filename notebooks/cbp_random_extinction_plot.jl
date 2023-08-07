@@ -21,7 +21,6 @@ CBP_trajectory = simulate_trajectory(
 p = plot(
     0:length(CBP_trajectory)-1,
     CBP_trajectory,
-    title="Trajectory of a CBP with immigration and random extinction events",
     xlabel="Generation",
     ylabel="Population Size",
     ylims=(0, 100),
@@ -29,7 +28,7 @@ p = plot(
     linealpha=0.8,
     linewidth=3,
     legend=false,
-    fontfamily="Computer Modern",
+    fontfamily="Times",
     titlefontsize=48,
     tickfontsize=32,
     guidefontsize=42,
