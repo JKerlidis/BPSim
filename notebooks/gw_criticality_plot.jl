@@ -27,9 +27,9 @@ function plot_trajectories(trajectories, title)
 end
 
 p = plot(
-    plot_trajectories(subcritical_GW_trajectories, "Subcritical (λ = 0.9)"),
-    plot_trajectories(critical_GW_trajectories, "Critical (λ = 1)"),
-    plot_trajectories(supercritical_GW_trajectories, "Supercritical (λ = 1.1)"),
+    plot_trajectories(subcritical_GW_trajectories, "Subcritical (m = 0.9)"),
+    plot_trajectories(critical_GW_trajectories, "Critical (m = 1)"),
+    plot_trajectories(supercritical_GW_trajectories, "Supercritical (m = 1.1)"),
     ylims=(0, 150),
     layout=(1, 3),
     size=(2400, 800),
